@@ -1,0 +1,43 @@
+{
+  "modules": {
+    "byIdentifier": {},
+    "usedIds": {}
+  },
+  "chunks": {
+    "byName": {
+      "commons": 0,
+      "static/runtime/webpack.js": 1,
+      "static/runtime/main.js": 2,
+      "static\\eCM4kCCY2KbRlA9XAF3Xx\\pages\\_app.js": 3,
+      "static\\eCM4kCCY2KbRlA9XAF3Xx\\pages\\_error.js": 4,
+      "static\\eCM4kCCY2KbRlA9XAF3Xx\\pages\\about.js": 5,
+      "static\\eCM4kCCY2KbRlA9XAF3Xx\\pages\\index.js": 6,
+      "static\\eCM4kCCY2KbRlA9XAF3Xx\\pages\\p\\[id].js": 7,
+      "static\\eCM4kCCY2KbRlA9XAF3Xx\\pages\\post.js": 8,
+      "static\\6MTrl4_mZu5OJd_ZC9f1y\\pages\\_app.js": 9,
+      "static\\6MTrl4_mZu5OJd_ZC9f1y\\pages\\_error.js": 10,
+      "static\\6MTrl4_mZu5OJd_ZC9f1y\\pages\\about.js": 11,
+      "static\\6MTrl4_mZu5OJd_ZC9f1y\\pages\\index.js": 12,
+      "static\\6MTrl4_mZu5OJd_ZC9f1y\\pages\\p\\[id].js": 13,
+      "static\\6MTrl4_mZu5OJd_ZC9f1y\\pages\\post.js": 14,
+      "static\\0W_nyCeGHd76tdvzQOjhd\\pages\\_app.js": 3,
+      "static\\0W_nyCeGHd76tdvzQOjhd\\pages\\_error.js": 4,
+      "static\\0W_nyCeGHd76tdvzQOjhd\\pages\\about.js": 5,
+      "static\\0W_nyCeGHd76tdvzQOjhd\\pages\\index.js": 6,
+      "static\\0W_nyCeGHd76tdvzQOjhd\\pages\\p\\[id].js": 7,
+      "static\\0W_nyCeGHd76tdvzQOjhd\\pages\\post.js": 8
+    },
+    "bySource": {},
+    "usedIds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  }
+}
