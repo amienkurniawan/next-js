@@ -15,6 +15,10 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
+    "/amien": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
