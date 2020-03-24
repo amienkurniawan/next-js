@@ -1,55 +1,46 @@
-import Layout from "../components/MyLayout";
-import Link from 'next/link';
+import useSWR from 'swr';
+import { useRouter } from 'next/router';
 
-function getPosts() {
-    return [
-        { id: 'hello-nextjs', title: 'hello next js' },
-        { id: 'learn-nextjs', title: 'lear next js is awesome' },
-        { id: 'deploy-nextjs', title: 'deploy next js' },
-    ]
+function fetcher(url) {
+    return fetch(url).then(r => r.json());
 }
 
-const PostLink = ({ post }) => (
-    <li>
-        <Link href="/p/[id]" as={`/p/${post.id}`}>
-            <a>{post.title}</a>
-        </Link>
-        <style jsx>
-            {`
-                li{
-                    list-style:none;
-                    margin:5px 0;
-                }
-                a{
-                    font-family:'arial';
-                    text-decoration:none;
-                    color:blue;
-                }
-                a:hover{
-                    opacity:0.6;
-                }
-            `}
-        </style>
-    </li>
-);
+export default function Index() {
+    const { query } = useRouter();
+    const { data, error } = useSWR(
+        `/api/randomQuote${query.author ? '?author=' + query.author : ''}`,
+        fetcher
+    );
+    console.log('data', data)
+    const author = data?.author;
+    let quote = data?.quote;
 
-export default function Blog() {
+    if (!data) quote = 'Loading...';
+    if (error) quote = 'Failed to fetch the quote.';
+
     return (
-        <Layout>
-            <h1>My Blog</h1>
-            <ul>
-                {getPosts().map(post => (
-                    <PostLink key={post.id} post={post} />
-                ))}
-            </ul>
+        <main className="center">
+            <div className="quote">{quote}</div>
+            {author && <span className="author" >-{author}</span>}
             <style jsx>{`
-                h1{
-                    font-family:'arial'
-                }
-                ul{
-                    padding:0;
-                }
-                `}</style>
-        </Layout>
+            main {
+                width: 90%;
+                max-width: 900px;
+                margin: 300px auto;
+                text-align: center;
+            }
+            .quote {
+                font-family: cursive;
+                color: #e243de;
+                font-size: 24px;
+                padding-bottom: 10px;
+            }
+            .author {
+                font-family: sans-serif;
+                color: #559834;
+                font-size: 20px;
+            }
+            `}</style>
+        </main>
     )
 }
