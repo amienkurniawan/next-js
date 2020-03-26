@@ -1,5 +1,6 @@
 import BaseLayout from '../components/layouts/BaseLayout'
 import React, { Component } from 'react'
+import { ButtonDropdown } from 'reactstrap'
 
 class Index extends Component {
   constructor() {
@@ -8,6 +9,7 @@ class Index extends Component {
     this.state = {
       text: "this init text"
     }
+    // this.onChangeButtonText = this.onChangeButtonText.bind(this);
   }
 
   componentDidMount() {
@@ -22,7 +24,8 @@ class Index extends Component {
     console.log('ComponentWillUnmount Index')
   }
 
-  onChangeButtonText = () => {
+  onChangeButtonText() {
+    console.log("onChangeButtonText")
     this.setState({ text: "change text" })
   }
 
@@ -32,7 +35,7 @@ class Index extends Component {
       <BaseLayout>
         <h1>Iam The Index boo yaa</h1>
         {this.state.text}
-        <button onClick={() => this.onChangeButtonText()}>Change Text</button>
+        <button onClick={this.onChangeButtonText}>Change Text</button>
       </BaseLayout >
     )
   }
