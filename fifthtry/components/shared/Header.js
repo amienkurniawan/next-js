@@ -28,6 +28,10 @@ class Header extends Component {
                 <Link href="/about">
                     <a>about</a>
                 </Link>
+                <br />
+                <Link href="/articles">
+                    <a>articles</a>
+                </Link>
                 <style jsx>
                     {`
                         a{
