@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Header from '../components/shared/Header'
 import Axios from 'axios';
-import Link from 'next/link';
-
+// import Link from 'next/link';
+import { Link } from '../routes';
 class articles extends Component {
     constructor() {
         super();
@@ -21,7 +21,7 @@ class articles extends Component {
         return data.map((article) => {
             return (
                 <li key={article.id}>
-                    <Link as={`/article/${article.id}`} href={`/article?id=${article.id}`}>
+                    <Link route={`/article/${article.id}`}>
                         <a>{article.title}</a>
                     </Link>
                 </li>
@@ -30,7 +30,6 @@ class articles extends Component {
     }
     render() {
         const { responseData } = this.props;
-        console.log('responseData', responseData.data)
         return (
             <React.Fragment>
                 <Header />
