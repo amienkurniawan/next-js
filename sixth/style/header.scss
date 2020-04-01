@@ -1,0 +1,19 @@
+.header{ 
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+.porfolio-link{
+    a{
+        text-decoration: none;
+        &:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
