@@ -18,5 +18,9 @@ class portfolio extends Component {
             </React.Fragment>
         )
     }
+    static async getInitialProps({ context }) {
+
+        return {}
+    }
 }
 export default withRouter(portfolio);
