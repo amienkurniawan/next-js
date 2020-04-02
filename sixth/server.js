@@ -12,12 +12,12 @@ app.prepare()
         const server = express();
 
 
-        // server.get('/article/:id', (req, res) => {
-        //     console.log("-----runinng on server side in article-----")
-        //     const actualPage = '/article';
-        //     const queryParams = { id: req.params.id }
-        //     app.render(req, res, actualPage, queryParams)
-        // });
+        server.get('/portfolio/:id', (req, res) => {
+            console.log("-----runinng on server side portfolio page-----")
+            const actualPage = '/portfolio';
+            const queryParams = { id: req.params.id }
+            app.render(req, res, actualPage, queryParams)
+        });
 
         server.get('*', (req, res) => {
             console.log("-----running on server side all request------")
