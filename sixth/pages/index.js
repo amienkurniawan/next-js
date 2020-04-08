@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import BaseLayout from '../components/layouts/BaseLayout';
+import { Button } from 'reactstrap';
+
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -13,8 +16,7 @@ class Index extends Component {
   render() {
     return (
       <BaseLayout>
-        <h1>Home</h1>
-        <p>this is Home Page</p>
+        <Button color="danger">danger</Button>
       </BaseLayout>
     )
   }

@@ -22,8 +22,9 @@ class portfolio extends Component {
             </React.Fragment>
         )
     }
-    static async getInitialProps(context) {
-        let id = context.query.id;
+    static async getInitialProps({ query }) {
+        let id = query.id;
+        console.log("id", id)
         let response = {};
         try {
             const respoonseData = await Axios.get(`http://dev.amien.portfolio.local/articles/${id}`);
