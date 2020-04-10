@@ -18,6 +18,8 @@
     "node-sass": "^4.13.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "reactstrap": "^8.4.1"
+    "react-typed": "^1.2.0",
+    "reactstrap": "^8.4.1",
+    "typed.js": "^2.0.11"
   }
 }

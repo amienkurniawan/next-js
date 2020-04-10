@@ -2,7 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import Custome Style
-import '../style/header.scss'
+import '../style/main.scss'
 
 export default function MyApp({ Component, pageProps }) {
     return <Component {...pageProps} />

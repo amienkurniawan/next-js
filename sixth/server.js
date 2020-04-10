@@ -11,21 +11,14 @@ app.prepare()
     .then(() => {
         const server = express();
 
-        // server.get('/portfolio/:id', (req, res) => {
-        //     const actualPage = '/portfolio';
-        //     const queryParams = { id: req.params.id }
-        //     console.log("queryParams", queryParams)
-        //     app.render(req, res, actualPage, queryParams)
-        // });
-
         server.get('*', (req, res) => {
             console.log("-----running on server side all request------")
             return handler(req, res)
         })
 
-        server.use(handler).listen(3000, (err) => {
+        server.use(handler).listen(3009, (err) => {
             if (err) throw err
-            console.log('ready on http//:localhost:3000')
+            console.log('ready on http//:localhost:3009')
         })
     }).catch((ext) => {
         console.log(ext.stack)

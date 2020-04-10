@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import Header from '../shared/Header';
 
-class BaseLayout extends Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return (
-            <React.Fragment>
-                <Header />
-                {this.props.children}
-            </React.Fragment>
-        )
-    }
+const BaseLayout = props => {
+    const { className, children } = props;
+    return (
+        <div className="layout-container">
+            <Header />
+            <main className={`cover ${className}`}>
+                <div className="wrapper">
+                    {children}
+                </div>
+            </main>
+        </div>
+    )
 }
+
 export default BaseLayout;
