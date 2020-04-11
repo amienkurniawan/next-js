@@ -34,7 +34,16 @@ const BsNavLink = props => {
         </Link>
     )
 }
-
+const Login = props => {
+    return (
+        <span className="nav-link port-navbar-link clickable">Login</span>
+    )
+}
+const Logout = props => {
+    return (
+        <span className="nav-link port-navbar-link clickable">Logout</span>
+    )
+}
 import Link from 'next/link';
 import React, { useState } from 'react';
 import {
@@ -43,7 +52,8 @@ import {
     NavbarToggler,
     NavbarBrand,
     Nav,
-    NavItem
+    NavItem,
+    NavbarText
 } from 'reactstrap';
 
 const Header = (props) => {
@@ -64,7 +74,8 @@ const Header = (props) => {
                         <NavItem className="port-navbar-item"><BsNavLink route="/cv" title="Cv" /></NavItem>
                         <NavItem className="port-navbar-item"><BsNavLink route="/about" title="About" /></NavItem>
                     </Nav>
-                    {/* <NavbarText>Simple Text</NavbarText> */}
+                    <NavbarText className="port-navbar-item"> <Login /></NavbarText>
+                    <NavbarText className="port-navbar-item"> <Logout /></NavbarText>
                 </Collapse>
             </Navbar>
         </div>
