@@ -10,8 +10,28 @@ class Auth0 {
             responseType: 'token id_token',
             scope: 'openid profile'
         });
-        this.login = this.login.bind(this)
+        this.login = this.login.bind(this);
+        this.handleAuthentication = this.handleAuthentication.bind(this);
     }
+
+    handleAuthentication() {
+        return new Promise((resolve, reject) => {
+            this.auth0.parseHash((err, authResult) => {
+                if (authResult && authResult.accessToken && authResult.idToken) {
+                    this.setSession(authResult);
+                    resolve();
+                    console.log("authResult", authResult);
+                } else {
+                    reject(err)
+                    console.log(err)
+                }
+            })
+        });
+    }
+    setSession() {
+        // Save Token Here
+    }
+
     login() {
         this.auth0.authorize();
     }
