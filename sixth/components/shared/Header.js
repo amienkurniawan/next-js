@@ -1,51 +1,8 @@
-// import React from 'react';
 
-
-
-// const Header = (props) => {
-//     return (
-//         <React.Fragment>
-//             {props.title}
-//             <br />
-//             <Link href="/">
-//                 <a className="header" style={{ fontSize: "20px" }}>home</a>
-//             </Link>
-//             <Link href="/profile">
-//                 <a className="header" style={{ fontSize: "20px" }}>profile</a>
-//             </Link>
-//             <Link href="/cv">
-//                 <a className="header" style={{ fontSize: "20px" }}>cv</a>
-//             </Link>
-//             <Link href="/about">
-//                 <a className="header" style={{ fontSize: "20px" }}>about</a>
-//             </Link>
-//             <Link href="/portfolios">
-//                 <a className="header" style={{ fontSize: "20px" }}>portfolios</a>
-//             </Link>
-//         </React.Fragment>
-//     )
-// }
-// export default Header;
-const BsNavLink = props => {
-    const { route, title } = props;
-    return (
-        <Link href={route}>
-            <a className="nav-link port-navbar-link">{title}</a>
-        </Link>
-    )
-}
-const Login = props => {
-    return (
-        <span className="nav-link port-navbar-link clickable">Login</span>
-    )
-}
-const Logout = props => {
-    return (
-        <span className="nav-link port-navbar-link clickable">Logout</span>
-    )
-}
 import Link from 'next/link';
 import React, { useState } from 'react';
+// import { useAuth0 } from "../../services/react-auth0-spa";
+import auth0 from '../../services/auth0';
 import {
     Collapse,
     Navbar,
@@ -57,6 +14,8 @@ import {
 } from 'reactstrap';
 
 const Header = (props) => {
+    // const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
@@ -74,8 +33,12 @@ const Header = (props) => {
                         <NavItem className="port-navbar-item"><BsNavLink route="/cv" title="Cv" /></NavItem>
                         <NavItem className="port-navbar-item"><BsNavLink route="/about" title="About" /></NavItem>
                     </Nav>
+                    {/* {!isAuthenticated && ( */}
                     <NavbarText className="port-navbar-item"> <Login /></NavbarText>
+                    {/* )} */}
+                    {/* {isAuthenticated && */}
                     <NavbarText className="port-navbar-item"> <Logout /></NavbarText>
+                    {/* } */}
                 </Collapse>
             </Navbar>
         </div>
@@ -83,3 +46,23 @@ const Header = (props) => {
 }
 
 export default Header;
+
+
+const BsNavLink = props => {
+    const { route, title } = props;
+    return (
+        <Link href={route}>
+            <a className="nav-link port-navbar-link">{title}</a>
+        </Link>
+    )
+}
+const Login = props => {
+    return (
+        <span onClick={auth0.login} className="nav-link port-navbar-link clickable">Login</span>
+    )
+}
+const Logout = props => {
+    return (
+        <span className="nav-link port-navbar-link clickable">Logout</span>
+    )
+}
