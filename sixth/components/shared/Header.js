@@ -13,10 +13,10 @@ import {
     NavbarText
 } from 'reactstrap';
 
-const Header = (props) => {
+const Header = props => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-    console.log("auth0", auth0.isAuthenticated())
+    const { isAuthenticated } = props;
     return (
         <div>
             <Navbar className="port-navbar port-default absolute" color="transparent" dark expand="md">
@@ -30,12 +30,8 @@ const Header = (props) => {
                         <NavItem className="port-navbar-item"><BsNavLink route="/cv" title="Cv" /></NavItem>
                         <NavItem className="port-navbar-item"><BsNavLink route="/about" title="About" /></NavItem>
                     </Nav>
-                    {!auth0.isAuthenticated() &&
-                        <NavbarText className="port-navbar-item"> <Login /></NavbarText>
-                    }
-                    {auth0.isAuthenticated() &&
-                        <NavbarText className="port-navbar-item"> <Logout /></NavbarText>
-                    }
+                    {!isAuthenticated && <NavbarText className="port-navbar-item"> <Login /></NavbarText>}
+                    {isAuthenticated && <NavbarText className="port-navbar-item"> <Logout /></NavbarText>}
                 </Collapse>
             </Navbar>
         </div>

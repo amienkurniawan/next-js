@@ -22,10 +22,10 @@ class portfolios extends Component {
     }
 
     render() {
-        let { portfolios } = this.props;
+        let { portfolios, isAuthenticated } = this.props;
         return (
 
-            <BaseLayout>
+            <BaseLayout isAuthenticated={isAuthenticated}>
                 <BasePage>
                     <h1>Portfolios</h1>
                     <p>this is page portfolios</p>

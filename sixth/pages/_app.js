@@ -8,16 +8,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import Custome Style
 import '../style/main.scss'
 
-function MyApp({ Component, pageProps }) {
-    return <Component {...pageProps} />
+function MyApp(appProps) {
+    const { Component, pageProps, auth } = appProps;
+
+    return <Component {...pageProps} {...auth} />
 }
 
 MyApp.getInitialProps = async (appContext) => {
 
     const { ctx } = appContext;
-    const isAuthenticated = process.browser ? auth0.clientAuth() : auth0.serverAuth(ctx);
+    const user = process.browser ? auth0.clientAuth() : auth0.serverAuth(ctx);
+    const auth = { user, isAuthenticated: !!user };
     const appProps = await App.getInitialProps(appContext);
-    console.log("isAuthenticated", isAuthenticated)
-    return { ...appProps }
+    return { ...appProps, auth }
 }
 export default MyApp;

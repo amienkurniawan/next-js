@@ -8,8 +8,9 @@ class profile extends Component {
         super(props)
     }
     render() {
+        const { isAuthenticated } = this.props;
         return (
-            <BaseLayout>
+            <BaseLayout isAuthenticated={isAuthenticated}>
                 <BasePage>
                     <h1>Profile</h1>
                     <p>this is page profile</p>

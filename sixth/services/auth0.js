@@ -1,6 +1,7 @@
 import auth0 from 'auth0-js';
 import config from './auth/config/auth_config.json';
 import Cookies from 'js-cookie'
+import jwt from 'jsonwebtoken';
 
 class Auth0 {
     constructor() {
@@ -34,13 +35,14 @@ class Auth0 {
     }
 
     setSession(authResult) {
-
+        console.log("authResult", authResult)
         const { accessToken, expiresIn, idToken, idTokenPayload } = authResult;
         const expiredAt = JSON.stringify((expiresIn * 1000) + new Date().getTime());
         Cookies.set('user', idTokenPayload);
-        Cookies.set('jwt', accessToken);
+        Cookies.set('jwt', idToken);
         Cookies.set('expiresAt', expiredAt);
     }
+
     logout() {
         Cookies.remove('user');
         Cookies.remove('jwt');
@@ -56,26 +58,40 @@ class Auth0 {
         this.auth0.authorize();
     }
 
+    verifyToken(token) {
+        if (token) {
+            const decodedToken = jwt.decode(token);
+            const expiredAt = decodedToken.exp * 1000;
+            return (decodedToken && new Date().getTime() < expiredAt) ? decodedToken : undefined;
+        }
+        return undefined;
+    }
+
     isAuthenticated() {
         const expiredAt = Cookies.getJSON('expiresAt');
         return new Date().getTime() < expiredAt;
     }
 
     clientAuth() {
-        return this.isAuthenticated();
+        const token = Cookies.getJSON('jwt');
+        const verifiedToken = this.verifyToken(token);
+        return verifiedToken;
     }
+
     serverAuth({ req }) {
         if (req.headers.cookie) {
-            const expiresAtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('expiresAt'));
-            if (!expiresAtCookie) {
-                return false;
+            const jwtAtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt'));
+            if (!jwtAtCookie) {
+                return undefined;
             } else {
-                const expiredAt = expiresAtCookie.split('=')[1];
-                return new Date().getTime() < expiredAt;
+                const jwtToken = jwtAtCookie.split('=')[1];
+                const verifiedToken = this.verifyToken(jwtToken)
+                return verifiedToken;
             }
-
         }
+        return undefined;
     }
+
 }
 
 const auth0Client = new Auth0();

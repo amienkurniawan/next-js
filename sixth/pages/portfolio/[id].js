@@ -12,9 +12,9 @@ class portfolio extends Component {
     }
 
     render() {
-        let { response } = this.props;
+        let { response, isAuthenticated } = this.props;
         return (
-            <BaseLayout>
+            <BaseLayout isAuthenticated={isAuthenticated}>
                 <BasePage>
                     <h1>Portfolio</h1>
                     <p>this is portfolio</p>

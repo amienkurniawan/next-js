@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import Header from '../components/shared/Header';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/layouts/BasePage';
 
 class about extends Component {
     constructor(props) {
         super(props);
-
     }
     render() {
+        const { isAuthenticated } = this.props;
         return (
-            <BaseLayout>
+            <BaseLayout isAuthenticated={isAuthenticated}>
                 <BasePage>
                     <h1> About</h1>
                     <p>this is page About</p>
