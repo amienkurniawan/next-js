@@ -13,6 +13,8 @@ class Auth0 {
         });
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
+        // this.clientAuth = this.clientAuth(this);
+        // this.serverAuth = this.serverAuth(this);
         this.handleAuthentication = this.handleAuthentication.bind(this);
         this.setSession = this.setSession.bind(this);
     }
@@ -23,7 +25,6 @@ class Auth0 {
                 if (authResult && authResult.accessToken && authResult.idToken) {
                     this.setSession(authResult);
                     resolve();
-                    console.log("authResult", authResult);
                 } else {
                     reject(err)
                     console.log(err)
@@ -58,6 +59,22 @@ class Auth0 {
     isAuthenticated() {
         const expiredAt = Cookies.getJSON('expiresAt');
         return new Date().getTime() < expiredAt;
+    }
+
+    clientAuth() {
+        return this.isAuthenticated();
+    }
+    serverAuth({ req }) {
+        if (req.headers.cookie) {
+            const expiresAtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('expiresAt'));
+            if (!expiresAtCookie) {
+                return false;
+            } else {
+                const expiredAt = expiresAtCookie.split('=')[1];
+                return new Date().getTime() < expiredAt;
+            }
+
+        }
     }
 }
 

@@ -9,6 +9,7 @@ class portfolios extends Component {
     constructor(props) {
         super(props);
     }
+
     renderPortfolio = (portfolios) => {
         if (!portfolios) {
             return;
