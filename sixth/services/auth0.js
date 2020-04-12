@@ -2,6 +2,7 @@ import auth0 from 'auth0-js';
 import config from './auth/config/auth_config.json';
 import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken';
+import Axios from 'axios';
 
 class Auth0 {
     constructor() {
@@ -67,13 +68,29 @@ class Auth0 {
         this.auth0.authorize();
     }
 
+    async getJKWS() {
+        const res = await Axios.get('https://dev-amien-portfolio.auth0.com/.well-known/jwks.json');
+        console.log("getJKWS", res)
+        const jwks = res.data;
+        return jwks;
+    }
+
     /**
      * function to verifying token
      * @param {type} token 
      */
-    verifyToken(token) {
+    async verifyToken(token) {
+        debugger;
         if (token) {
-            const decodedToken = jwt.decode(token);
+            const decodedToken = jwt.decode(token, { complete: true });
+            const jwks = await this.getJKWS();
+            const jwk = jwks.keys[0];
+            // // generate certification
+            let cert = jwk.x5c[0];
+            cert = cert.match(/.{1,64}/g).join('\n');
+            cert = `-----BEGIN CERTIFICATE-----\n${cert}-----END CERTIFICATE-----\n`;
+            console.log('certificate', cert);
+
             const expiredAt = decodedToken.exp * 1000;
             return (decodedToken && new Date().getTime() < expiredAt) ? decodedToken : undefined;
         }
