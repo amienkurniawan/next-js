@@ -1,7 +1,6 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-// import { useAuth0 } from "../../services/react-auth0-spa";
 import auth0 from '../../services/auth0';
 import {
     Collapse,
@@ -16,7 +15,8 @@ import {
 const Header = props => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-    const { isAuthenticated } = props;
+    const { isAuthenticated, user } = props;
+    console.log("props", props)
     return (
         <div>
             <Navbar className="port-navbar port-default absolute" color="transparent" dark expand="md">
@@ -32,6 +32,7 @@ const Header = props => {
                     </Nav>
                     {!isAuthenticated && <NavbarText className="port-navbar-item"> <Login /></NavbarText>}
                     {isAuthenticated && <NavbarText className="port-navbar-item"> <Logout /></NavbarText>}
+                    {isAuthenticated && <NavbarText className="port-navbar-item"><span className="nav-link port-navbar-link ">{user.name}</span> </NavbarText>}
                 </Collapse>
             </Navbar>
         </div>

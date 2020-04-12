@@ -14,12 +14,12 @@ class Auth0 {
         });
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
-        // this.clientAuth = this.clientAuth(this);
-        // this.serverAuth = this.serverAuth(this);
-        this.handleAuthentication = this.handleAuthentication.bind(this);
         this.setSession = this.setSession.bind(this);
     }
 
+    /**
+     * function to handle authentication
+     */
     handleAuthentication() {
         return new Promise((resolve, reject) => {
             this.auth0.parseHash((err, authResult) => {
@@ -34,8 +34,11 @@ class Auth0 {
         });
     }
 
+    /**
+     * function to set auth data
+     * @param {object} authResult object data from authResult
+     */
     setSession(authResult) {
-        console.log("authResult", authResult)
         const { accessToken, expiresIn, idToken, idTokenPayload } = authResult;
         const expiredAt = JSON.stringify((expiresIn * 1000) + new Date().getTime());
         Cookies.set('user', idTokenPayload);
@@ -43,6 +46,9 @@ class Auth0 {
         Cookies.set('expiresAt', expiredAt);
     }
 
+    /**
+     * function to logout
+     */
     logout() {
         Cookies.remove('user');
         Cookies.remove('jwt');
@@ -54,10 +60,17 @@ class Auth0 {
         })
     }
 
+    /**
+     * function to login
+     */
     login() {
         this.auth0.authorize();
     }
 
+    /**
+     * function to verifying token
+     * @param {type} token 
+     */
     verifyToken(token) {
         if (token) {
             const decodedToken = jwt.decode(token);
@@ -67,17 +80,18 @@ class Auth0 {
         return undefined;
     }
 
-    isAuthenticated() {
-        const expiredAt = Cookies.getJSON('expiresAt');
-        return new Date().getTime() < expiredAt;
-    }
-
+    /**
+     * function to get authorize in client side
+     */
     clientAuth() {
         const token = Cookies.getJSON('jwt');
         const verifiedToken = this.verifyToken(token);
         return verifiedToken;
     }
 
+    /**
+     * function to get authorize in server side
+     */
     serverAuth({ req }) {
         if (req.headers.cookie) {
             const jwtAtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt'));

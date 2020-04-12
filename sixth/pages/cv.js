@@ -7,9 +7,9 @@ class cv extends Component {
         super(props);
     }
     render() {
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated, user } = this.props;
         return (
-            <BaseLayout isAuthenticated={isAuthenticated}>
+            <BaseLayout isAuthenticated={isAuthenticated} user={user}>
                 <BasePage>
                     <h1>CV</h1>
                     <p>this is page cv</p>

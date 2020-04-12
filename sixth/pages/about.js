@@ -7,9 +7,9 @@ class about extends Component {
         super(props);
     }
     render() {
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated, user } = this.props;
         return (
-            <BaseLayout isAuthenticated={isAuthenticated}>
+            <BaseLayout isAuthenticated={isAuthenticated} user={user}>
                 <BasePage>
                     <h1> About</h1>
                     <p>this is page About</p>
