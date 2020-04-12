@@ -14,12 +14,9 @@ import {
 } from 'reactstrap';
 
 const Header = (props) => {
-    // const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
     const [isOpen, setIsOpen] = useState(false);
-
     const toggle = () => setIsOpen(!isOpen);
-
+    console.log("auth0", auth0.isAuthenticated())
     return (
         <div>
             <Navbar className="port-navbar port-default absolute" color="transparent" dark expand="md">
@@ -33,12 +30,12 @@ const Header = (props) => {
                         <NavItem className="port-navbar-item"><BsNavLink route="/cv" title="Cv" /></NavItem>
                         <NavItem className="port-navbar-item"><BsNavLink route="/about" title="About" /></NavItem>
                     </Nav>
-                    {/* {!isAuthenticated && ( */}
-                    <NavbarText className="port-navbar-item"> <Login /></NavbarText>
-                    {/* )} */}
-                    {/* {isAuthenticated && */}
-                    <NavbarText className="port-navbar-item"> <Logout /></NavbarText>
-                    {/* } */}
+                    {!auth0.isAuthenticated() &&
+                        <NavbarText className="port-navbar-item"> <Login /></NavbarText>
+                    }
+                    {auth0.isAuthenticated() &&
+                        <NavbarText className="port-navbar-item"> <Logout /></NavbarText>
+                    }
                 </Collapse>
             </Navbar>
         </div>
@@ -63,6 +60,6 @@ const Login = props => {
 }
 const Logout = props => {
     return (
-        <span className="nav-link port-navbar-link clickable">Logout</span>
+        <span onClick={auth0.logout} className="nav-link port-navbar-link clickable">Logout</span>
     )
 }

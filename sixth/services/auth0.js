@@ -12,12 +12,12 @@ class Auth0 {
             scope: 'openid profile'
         });
         this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
         this.handleAuthentication = this.handleAuthentication.bind(this);
         this.setSession = this.setSession.bind(this);
     }
 
     handleAuthentication() {
-        debugger;
         return new Promise((resolve, reject) => {
             this.auth0.parseHash((err, authResult) => {
                 if (authResult && authResult.accessToken && authResult.idToken) {
@@ -44,6 +44,7 @@ class Auth0 {
         Cookies.remove('user');
         Cookies.remove('jwt');
         Cookies.remove('expiresAt');
+
         this.auth0.logout({
             returnTo: '',
             clientID: config.clientId
@@ -56,7 +57,7 @@ class Auth0 {
 
     isAuthenticated() {
         const expiredAt = Cookies.getJSON('expiresAt');
-        return new Date().getTime < expiredAt;
+        return new Date().getTime() < expiredAt;
     }
 }
 
