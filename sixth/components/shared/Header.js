@@ -16,7 +16,7 @@ const Header = props => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     const { isAuthenticated, user } = props;
-    console.log("props", props)
+    console.log("props header", props)
     return (
         <div>
             <Navbar className="port-navbar port-default absolute" color="transparent" dark expand="md">
@@ -32,7 +32,7 @@ const Header = props => {
                     </Nav>
                     {!isAuthenticated && <NavbarText className="port-navbar-item"> <Login /></NavbarText>}
                     {isAuthenticated && <NavbarText className="port-navbar-item"> <Logout /></NavbarText>}
-                    {isAuthenticated && <NavbarText className="port-navbar-item"><span className="nav-link port-navbar-link ">{user.name}</span> </NavbarText>}
+                    {isAuthenticated && <NavbarText className="port-navbar-item"><span className="nav-link port-navbar-link ">{user.payload.name}</span> </NavbarText>}
                 </Collapse>
             </Navbar>
         </div>

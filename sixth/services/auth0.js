@@ -82,12 +82,15 @@ class Auth0 {
     async verifyToken(token) {
         if (token) {
             const decodedToken = jwt.decode(token, { complete: true });
+            if (!decodedToken) {
+                return undefined;
+            }
             const jwks = await this.getJKWS();
             const jwk = jwks.keys[0];
             // // generate certification
             let cert = jwk.x5c[0];
             cert = cert.match(/.{1,64}/g).join('\n');
-            cert = `-----BEGIN CERTIFICATE-----\n${cert}-----END CERTIFICATE-----\n`;
+            cert = `-----BEGIN CERTIFICATE-----\n${cert}\n-----END CERTIFICATE-----\n`;
             console.log('certificate', cert, jwk.kid, decodedToken.header.kid);
             if (jwk.kid === decodedToken.header.kid) {
                 try {
@@ -105,23 +108,23 @@ class Auth0 {
     /**
      * function to get authorize in client side
      */
-    clientAuth() {
+    async clientAuth() {
         const token = Cookies.getJSON('jwt');
-        const verifiedToken = this.verifyToken(token);
+        const verifiedToken = await this.verifyToken(token);
         return verifiedToken;
     }
 
     /**
      * function to get authorize in server side
      */
-    serverAuth({ req }) {
+    async serverAuth({ req }) {
         if (req.headers.cookie) {
             const jwtAtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt'));
             if (!jwtAtCookie) {
                 return undefined;
             } else {
                 const jwtToken = jwtAtCookie.split('=')[1];
-                const verifiedToken = this.verifyToken(jwtToken)
+                const verifiedToken = await this.verifyToken(jwtToken)
                 return verifiedToken;
             }
         }

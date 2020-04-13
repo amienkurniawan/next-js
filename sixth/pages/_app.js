@@ -17,7 +17,7 @@ function MyApp(appProps) {
 MyApp.getInitialProps = async (appContext) => {
 
     const { ctx } = appContext;
-    const user = process.browser ? auth0.clientAuth() : auth0.serverAuth(ctx);
+    const user = process.browser ? await auth0.clientAuth() : await auth0.serverAuth(ctx);
     const auth = { user, isAuthenticated: !!user };
     const appProps = await App.getInitialProps(appContext);
     return { ...appProps, auth }
