@@ -80,7 +80,6 @@ class Auth0 {
      * @param {type} token 
      */
     async verifyToken(token) {
-        debugger;
         if (token) {
             const decodedToken = jwt.decode(token, { complete: true });
             const jwks = await this.getJKWS();
@@ -89,10 +88,16 @@ class Auth0 {
             let cert = jwk.x5c[0];
             cert = cert.match(/.{1,64}/g).join('\n');
             cert = `-----BEGIN CERTIFICATE-----\n${cert}-----END CERTIFICATE-----\n`;
-            console.log('certificate', cert);
-
-            const expiredAt = decodedToken.exp * 1000;
-            return (decodedToken && new Date().getTime() < expiredAt) ? decodedToken : undefined;
+            console.log('certificate', cert, jwk.kid, decodedToken.header.kid);
+            if (jwk.kid === decodedToken.header.kid) {
+                try {
+                    const verifiedToken = jwt.verify(token, cert);
+                    const expiresAt = verifiedToken.exp * 1000;
+                    return (verifiedToken && new Date().getTime() < expiresAt) ? decodedToken : undefined;
+                } catch (error) {
+                    return undefined;
+                }
+            }
         }
         return undefined;
     }
