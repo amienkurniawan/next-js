@@ -87,7 +87,7 @@ class Auth0 {
             }
             const jwks = await this.getJKWS();
             const jwk = jwks.keys[0];
-            // // generate certification
+            // generate certification
             let cert = jwk.x5c[0];
             cert = cert.match(/.{1,64}/g).join('\n');
             cert = `-----BEGIN CERTIFICATE-----\n${cert}\n-----END CERTIFICATE-----\n`;
