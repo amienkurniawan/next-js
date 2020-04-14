@@ -1,18 +1,23 @@
 const express = require('express');
 const next = require('next');
-const routes = require('./routes');
+const routes = require('../routes');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handler = routes.getRequestHandler(app);
 
+const secretData = [
+    { title: 'secret data 1', description: 'how to build spacerocket' },
+    { title: 'secret data 2', description: 'how to survive in space' }
+]
 
 app.prepare()
     .then(() => {
         const server = express();
-
+        server.get('/api/v1/secret', (req, res) => {
+            return res.json(secretData)
+        })
         server.get('*', (req, res) => {
-            console.log("-----running on server side all request------")
             return handler(req, res)
         })
 
