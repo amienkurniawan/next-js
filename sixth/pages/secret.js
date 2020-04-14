@@ -8,19 +8,19 @@ class secret extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: ''
+            secretData: []
         }
     }
 
     async componentDidMount() {
         const response = await Axios.get('/api/v1/secret');
         const data = response.data;
-        this.setState({ data })
+        this.setState({ secretData: data })
     }
     secretDataDisplay = () => {
-        const { data } = this.state;
-        if (data && data.length > 0) {
-            return data.map((data, index) => {
+        const { secretData } = this.state;
+        if (secretData && secretData.length > 0) {
+            return secretData.map((data, index) => {
                 return (
                     <div key={index}>
                         <h3>{data.title}</h3>
@@ -33,8 +33,7 @@ class secret extends Component {
 
     render() {
         const { isAuthenticated, user } = this.props;
-        console.log("secret", this.props)
-        console.log("this state ", this.state)
+
         return (
             <BaseLayout isAuthenticated={isAuthenticated} user={user}>
                 <BasePage>
