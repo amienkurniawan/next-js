@@ -3,7 +3,7 @@ import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/layouts/BasePage';
 import withAuth from '../components/hoc/withAuth';
 import Axios from 'axios';
-
+import { authHeaders } from '../server/services/authHeader';
 class secret extends Component {
     constructor(props) {
         super(props);
@@ -13,8 +13,8 @@ class secret extends Component {
     }
 
     async componentDidMount() {
-        const response = await Axios.get('/api/v1/secret');
-        const data = response.data;
+        const data = await authHeaders();
+        console.log("data", data)
         this.setState({ secretData: data })
     }
     secretDataDisplay = () => {
