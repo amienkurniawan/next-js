@@ -16,7 +16,6 @@ const Header = props => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     const { isAuthenticated, user } = props;
-    console.log("props header", props)
     return (
         <div>
             <Navbar className="port-navbar port-default absolute" color="transparent" dark expand="md">

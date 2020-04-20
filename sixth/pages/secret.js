@@ -14,7 +14,6 @@ class secret extends Component {
 
     async componentDidMount() {
         const data = await authHeaders();
-        console.log("data", data)
         this.setState({ secretData: data })
     }
     secretDataDisplay = () => {
